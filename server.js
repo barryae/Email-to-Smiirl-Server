@@ -1,7 +1,8 @@
 const express = require('express');
-require('dotenv').config()
+
 const app = express()
-const PORT = process.env.PORT || 3000
+
+const port = process.env.PORT || 3000
 const muleNumber = [5];
 
 app.use(express.urlencoded({ extended: true }));
@@ -15,8 +16,8 @@ app.post('/smiirl/putNumber', function (req, res) {
     muleNumber.unshift(req.body)
 })
 
-app.listen(PORT, function () {
-    console.log('App listening on PORT: ' + PORT)
+app.listen(port, function () {
+    console.log('App listening on PORT: ' + port)
 })
 
 // Use Imap to search my email per da
