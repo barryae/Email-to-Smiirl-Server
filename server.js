@@ -9,11 +9,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get('/smiirl/muleNumber', function (req, res) {
-    res.json({ number: muleNumber[0] }); //
+    res.json({ number: muleNumber }); //
 })
 
-app.post('/smiirl/putNumber', function (req, res) {
-    muleNumber.unshift(req.body)
+app.post('/smiirl/:number', function (req, res) {
+    muleNumber = [req.params.number]
 })
 
 app.listen(port, function () {
