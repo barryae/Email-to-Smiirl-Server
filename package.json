@@ -1,0 +1,24 @@
+{
+  "name": "Email-to-Smiirl-Server",
+  "version": "1.0.0",
+  "description": "Server that receives Focus POS email report and updates Smiirl counter on a daily basis.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/barryae/Email-to-Smiirl-Server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/barryae/Email-to-Smiirl-Server/issues"
+  },
+  "homepage": "https://github.com/barryae/Email-to-Smiirl-Server#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "imap": "^0.8.19"
+  }
+}
