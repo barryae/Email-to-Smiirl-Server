@@ -13,7 +13,7 @@ app.get('/smiirl/muleNumber', function (req, res) {
 })
 
 app.post('/smiirl/:number', function (req, res) {
-    muleNumber = [req.params.number]
+    muleNumber[0] = req.params.number
 })
 
 app.listen(port, function () {
