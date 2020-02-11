@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get('/smiirl/muleNumber', function (req, res) {
-    res.json({ number: muleNumber }); //
+    res.json({ number: muleNumber[0] }); //
 })
 
 app.post('/smiirl/:number', function (req, res) {
