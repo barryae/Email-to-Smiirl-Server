@@ -12,7 +12,7 @@ app.get('/smiirl/muleNumber', function (req, res) {
     res.json({ number: muleNumber[0] }); //
 })
 
-app.post('/smiirl/:number', function (req, res) {
+app.get('/smiirl/:number', function (req, res) {
     muleNumber[0] = req.params.number
 })
 
