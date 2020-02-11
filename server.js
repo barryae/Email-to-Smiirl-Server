@@ -12,8 +12,9 @@ app.get('/smiirl/muleNumber', function (req, res) {
     res.json({ number: muleNumber[0] }); //
 })
 
-app.get('/smiirl/:number', function (req, res) {
+app.get('/smiirl/update/:number', function (req, res) {
     muleNumber[0] = req.params.number
+    res.json('Updated Moscow Mule total to ' + muleNumber[0])
 })
 
 app.listen(port, function () {
