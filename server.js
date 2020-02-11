@@ -1,5 +1,5 @@
 const express = require('express');
-
+require('dotenv').config()
 const app = express()
 const PORT = process.env.PORT || 3000
 const muleNumber = [5];
@@ -19,6 +19,7 @@ app.listen(PORT, function () {
     console.log('App listening on PORT: ' + PORT)
 })
 
+// Use Imap to search my email per da
 
 var Imap = require('imap'),
     inspect = require('util').inspect;
@@ -28,7 +29,7 @@ var imap = new Imap({
     password: process.env.GMAIL,
     host: 'imap.gmail.com',
     port: 993,
-    tls: true
+    tls: true,
 });
 
 function openInbox(cb) {
