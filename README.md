@@ -1,3 +1,7 @@
-# Email-to-Smiirl-Server
+# Smiirl-Server-with-CronJob
 
-Server that receives Focus POS email report and updates Smiirl counter on a daily basis.
+Basic server that stores number in MongoDB and provides updated number to Smiirl Custom Counter.
+
+Updated periodically with CronJob.
+
+Deployed on Heroku with MLab.
