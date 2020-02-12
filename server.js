@@ -39,7 +39,19 @@ app.listen(port, function () {
 })
 
 const job = new CronJob("0 19,20,21,22,23,0,1,2 * * *", function () {
-    muleNumber += 1
+    MuleNumber.findOne({ title: "MuleNumber" })
+        .then(result => {
+            MuleNumber.update({ title: "MuleNumber" }, { number: (result.number + 1) })
+                .then(result => {
+                    res.json(result)
+                })
+                .catch(err => {
+                    res.status(422).json(err)
+                })
+        })
+        .catch(err => {
+            res.status(422).json(err)
+        })
 }, null, true, 'America/Kentucky/Monticello');
 job.start();
 
