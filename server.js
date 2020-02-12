@@ -10,11 +10,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get('/smiirl/muleNumber', function (req, res) {
-    res.json({ number: muleNumber[0] });
+    res.json({ number: muleNumber });
 })
 
 app.get('/smiirl/update/:number', function (req, res) {
-    muleNumber[0] = req.params.number
+    muleNumber = req.params.number
     res.json('Updated Moscow Mule total to ' + muleNumber[0])
 })
 
