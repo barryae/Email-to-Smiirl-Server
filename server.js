@@ -4,7 +4,7 @@ const CronJob = require('cron').CronJob;
 const app = express()
 
 const port = process.env.PORT || 3000
-const muleNumber = 210;
+let muleNumber = 210;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
