@@ -23,7 +23,7 @@ app.listen(port, function () {
 })
 
 const job = new CronJob("0 19,20,21,22,23,0,1,2 * * *", function () {
-    muleNumber[0] += 1
+    muleNumber += 1
 }, null, true, 'America/Los_Angeles');
 job.start();
 
