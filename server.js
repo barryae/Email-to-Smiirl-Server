@@ -1,21 +1,37 @@
 const express = require('express');
+const mongoose = require("mongoose");
 const CronJob = require('cron').CronJob;
+const MuleNumber = require("./model");
 
 const app = express()
-
 const port = process.env.PORT || 3000
-let muleNumber = 210;
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get('/smiirl/muleNumber', function (req, res) {
-    res.json({ number: muleNumber });
+    MuleNumber.findOne({ title: "MuleNumber" })
+        .then(result => {
+            console.log(result.number)
+            res.json({ number: result.number })
+        })
+        .catch(err => {
+            res.status(422).json(err)
+        })
 })
 
+mongoose.connect(process.env.MONGODB_URI);
+// mongoose.connect("mongodb://localhost/mulenumber", { useNewUrlParser: true })
+
 app.get('/smiirl/update/:number', function (req, res) {
-    muleNumber = req.params.number
-    res.json('Updated Moscow Mule total to ' + muleNumber[0])
+    MuleNumber.update({ title: "MuleNumber" }, { number: req.params.number })
+        .then(result => {
+            res.json(result)
+        })
+        .catch(err => {
+            res.status(422).json(err)
+        })
 })
 
 app.listen(port, function () {
