@@ -15,8 +15,8 @@ app.listen(port, function () {
 })
 
 //DB Connection
-//mongoose.connect(process.env.MONGODB_URI);
-mongoose.connect("mongodb://localhost/mulenumber", { useNewUrlParser: true })
+mongoose.connect(process.env.MONGODB_URI);
+//mongoose.connect("mongodb://localhost/mulenumber", { useNewUrlParser: true })
 
 //Routing
 app.get('/smiirl/muleNumber', function (req, res) {
