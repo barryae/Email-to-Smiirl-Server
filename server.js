@@ -15,8 +15,8 @@ app.listen(port, function () {
 })
 
 //DB Connection
-mongoose.connect(process.env.MONGODB_URI);
-// mongoose.connect("mongodb://localhost/mulenumber", { useNewUrlParser: true })
+//mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect("mongodb://localhost/mulenumber", { useNewUrlParser: true })
 
 //Routing
 app.get('/smiirl/muleNumber', function (req, res) {
@@ -39,13 +39,15 @@ app.get('/smiirl/update/:number', function (req, res) {
             res.status(422).json(err)
         })
 })
-
+//19, 20, 21, 22, 23, 0, 1, 2
 //CronJob for adding drinks periodically each night
-const job = new CronJob("0 19,20,21,22,23,0,1,2 * * *", function () {
+const job = new CronJob("7 7 */3 * * *", function () {
+    console.log(CronJob)
     MuleNumber.findOne({ title: "MuleNumber" })
         .then(result => {
-            MuleNumber.update({ title: "MuleNumber" }, { number: (result.number + 1) })
+            MuleNumber.updateOne({ title: "MuleNumber" }, { number: (result.number + 1) })
                 .then(result => {
+                    console.log(result)
                     res.json(result)
                 })
                 .catch(err => {
