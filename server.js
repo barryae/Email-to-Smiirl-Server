@@ -41,7 +41,7 @@ app.get('/smiirl/update/:number', function (req, res) {
 })
 //19, 20, 21, 22, 23, 0, 1, 2
 //CronJob for adding drinks periodically each night
-const job = new CronJob("0 0-23/3 * * *", function () {
+const job = new CronJob("0 0 0-23/3 * * *", function () {
     MuleNumber.findOne({ title: "MuleNumber" })
         .then(result => {
             MuleNumber.updateOne({ title: "MuleNumber" }, { number: (result.number + 1) })
@@ -56,5 +56,5 @@ const job = new CronJob("0 0-23/3 * * *", function () {
             res.status(422).json(err)
         })
 });
-job.start();
+
 
