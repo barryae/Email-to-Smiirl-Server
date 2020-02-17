@@ -28,7 +28,6 @@ app.get('/smiirl/muleNumber', function (req, res) {
         .catch(err => {
             res.status(422).json(err)
         })
-    job.start();
 })
 
 app.get('/smiirl/update/:number', function (req, res) {
@@ -40,22 +39,6 @@ app.get('/smiirl/update/:number', function (req, res) {
             res.status(422).json(err)
         })
 })
-//19, 20, 21, 22, 23, 0, 1, 2
-//CronJob for adding drinks periodically each night
-const job = new CronJob("0 0 0-23/3 * * *", function () {
-    MuleNumber.findOne({ title: "MuleNumber" })
-        .then(result => {
-            MuleNumber.updateOne({ title: "MuleNumber" }, { number: (result.number + 1) })
-                .then(result => {
-                    res.json(result)
-                })
-                .catch(err => {
-                    res.status(422).json(err)
-                })
-        })
-        .catch(err => {
-            res.status(422).json(err)
-        })
-});
+
 
 
