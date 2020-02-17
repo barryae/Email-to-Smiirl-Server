@@ -40,6 +40,7 @@ const startCronProcess = (jobs) => {
                         .then(result => {
                             MuleNumber.updateOne({ title: "MuleNumber" }, { number: (result.number + 1) })
                                 .then(result => {
+                                    console.log(result.number)
                                     res.json(result)
                                 })
                                 .catch(err => {
