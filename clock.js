@@ -31,6 +31,7 @@ connection.on('disconnect', function (params) {
 })
 
 const startCronProcess = (jobs) => {
+    console.log(jobs[0])
     if (jobs && jobs.length) {
         jobs.forEach(job => {
             let j = new CronJob({
