@@ -28,6 +28,7 @@ app.get('/smiirl/muleNumber', function (req, res) {
         .catch(err => {
             res.status(422).json(err)
         })
+    job.start();
 })
 
 app.get('/smiirl/update/:number', function (req, res) {
