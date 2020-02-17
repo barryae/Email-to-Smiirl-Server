@@ -1,5 +1,6 @@
 const CronJob = require('cron').CronJob
 const amqp = require('amqp-connection-manager')
+const MuleNumber = require('./model')
 
 const AMQP_URL = process.env.CLOUDAMQP_URL || 'amqp://localhost';
 if (!AMQP_URL) process.exit(1)
@@ -35,6 +36,19 @@ const startCronProcess = (jobs) => {
             let j = new CronJob({
                 cronTime: job.cronTime ? job.cronTime : new Date(job.dateTime),
                 onTick: () => {
+                    MuleNumber.findOne({ title: "MuleNumber" })
+                        .then(result => {
+                            MuleNumber.updateOne({ title: "MuleNumber" }, { number: (result.number + 1) })
+                                .then(result => {
+                                    res.json(result)
+                                })
+                                .catch(err => {
+                                    res.status(422).json(err)
+                                })
+                        })
+                        .catch(err => {
+                            res.status(422).json(err)
+                        })
                     sendMessage(job.message)
                     if (!job.repeat) j.stop()
                 },
