@@ -36,6 +36,7 @@ const startCronProcess = (jobs) => {
             let j = new CronJob({
                 cronTime: job.cronTime ? job.cronTime : new Date(job.dateTime),
                 onTick: () => {
+                    console.log("tick")
                     MuleNumber.findOne({ title: "MuleNumber" })
                         .then(result => {
                             MuleNumber.updateOne({ title: "MuleNumber" }, { number: (result.number + 1) })
