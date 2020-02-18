@@ -1,6 +1,5 @@
 const CronJob = require('cron').CronJob
 const amqp = require('amqp-connection-manager')
-const MuleNumber = require('./model')
 
 const AMQP_URL = process.env.CLOUDAMQP_URL || 'amqp://localhost';
 if (!AMQP_URL) process.exit(1)
@@ -31,13 +30,11 @@ connection.on('disconnect', function (params) {
 })
 
 const startCronProcess = (jobs) => {
-    console.log(jobs[0])
     if (jobs && jobs.length) {
         jobs.forEach(job => {
             let j = new CronJob({
                 cronTime: job.cronTime ? job.cronTime : new Date(job.dateTime),
                 onTick: () => {
-                    console.log("tick")
                     sendMessage(job.message)
                     if (!job.repeat) j.stop()
                 },

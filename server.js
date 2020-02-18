@@ -2,7 +2,9 @@ const express = require('express');
 const mongoose = require("mongoose");
 const CronJob = require('cron').CronJob;
 const MuleNumber = require("./model");
-
+const amqp = require('amqp-connection-manager')
+const AMQP_URL = process.env.CLOUDAMQP_URL || 'amqp://localhost';
+if (!AMQP_URL) process.exit(1)
 //Server
 const app = express()
 const port = process.env.PORT || 3000
@@ -10,6 +12,22 @@ const port = process.env.PORT || 3000
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+const WORKER_QUEUE = 'worker-queue'
+
+// Create a new connection manager from AMQP
+var connection = amqp.connect([AMQP_URL])
+console.log('[AMQP] - Connecting....')
+
+connection.on('connect', function () {
+    process.once('SIGINT', function () { // Close conn on exit
+        connection.close()
+    })
+    return console.log('[AMQP] - Connected!')
+})
+
+connection.on('disconnect', function (params) {
+    return console.error('[AMQP] - Disconnected.', params.err.stack)
+})
 app.listen(port, function () {
     console.log('App listening on PORT: ' + port)
 })
@@ -40,26 +58,7 @@ app.get('/smiirl/update/:number', function (req, res) {
         })
 })
 
-const amqp = require('amqp-connection-manager')
-const AMQP_URL = process.env.CLOUDAMQP_URL || 'amqp://localhost';
-if (!AMQP_URL) process.exit(1)
 
-const WORKER_QUEUE = 'worker-queue'
-
-// Create a new connection manager from AMQP
-var connection = amqp.connect([AMQP_URL])
-console.log('[AMQP] - Connecting....')
-
-connection.on('connect', function () {
-    process.once('SIGINT', function () { // Close conn on exit
-        connection.close()
-    })
-    return console.log('[AMQP] - Connected!')
-})
-
-connection.on('disconnect', function (params) {
-    return console.error('[AMQP] - Disconnected.', params.err.stack)
-})
 
 // ---------- To receive the execution task messages
 let channelWrapper = connection.createChannel({
