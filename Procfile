@@ -1,2 +1,2 @@
-worker: node worker.js
+worker: server.js
 clock:  node clock.js

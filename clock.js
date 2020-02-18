@@ -10,7 +10,7 @@ const CLOCK_QUEUE = 'clock-queue'  // To consume from clock process
 const JOBS = [{  // You could store these jobs in a database
     name: "Cron process 1",
     message: { "taskName": "increaseByOne", "queue": "worker-queue" },  // message in json format
-    crontTime: "0 0 19,20,21,22,23,1,2 * * *",
+    crontTime: "* * * * * *",
     repeat: 1
 }]
 
@@ -38,20 +38,6 @@ const startCronProcess = (jobs) => {
                 cronTime: job.cronTime ? job.cronTime : new Date(job.dateTime),
                 onTick: () => {
                     console.log("tick")
-                    MuleNumber.findOne({ title: "MuleNumber" })
-                        .then(result => {
-                            MuleNumber.updateOne({ title: "MuleNumber" }, { number: (result.number + 1) })
-                                .then(result => {
-                                    console.log(result.number)
-                                    res.json(result)
-                                })
-                                .catch(err => {
-                                    res.status(422).json(err)
-                                })
-                        })
-                        .catch(err => {
-                            res.status(422).json(err)
-                        })
                     sendMessage(job.message)
                     if (!job.repeat) j.stop()
                 },
